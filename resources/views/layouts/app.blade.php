@@ -78,7 +78,7 @@
                     <div class="panel-heading">Dashboard</div>
 
                     <div class="panel-body">
-                        <a href="#" class="btn btn-light">Home</a>
+                        <a href="{{route('home')}}" class="btn btn-light">Home</a>
                         <hr>
                         <a href="{{route('Rooms')}}" class="btn btn-light">Room List</a>
                         <hr>
