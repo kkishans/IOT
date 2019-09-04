@@ -12,12 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('login'));
 });
 
-Route::get('/home/add', function () {
-    return view('addRoom');
-})->name('AddRoom');
+
 
 
 Auth::routes();
