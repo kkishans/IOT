@@ -20,7 +20,12 @@ Route::get('/home/add', function () {
 });
 Auth::routes();
 
-Route::resource('Room','RoomController');
+//Route::resource('Room','RoomController');
+
+Route::get('/room/store', [
+    'uses'  => 'RoomController@store',
+    'as'    => 'Room.store'
+  ]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Room;
 
 class RoomController extends Controller
 {
@@ -34,13 +35,11 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'room' => 'required',
-        ]);
-  
-        Product::create($request->all());
+       $store = new Room;
+       $store->room = $request->room;
+       $store->save();
    
-        return redirect()->route('/home')
+        return redirect()->route('home')
                         ->with('success','Room created successfully.');
     }
 
