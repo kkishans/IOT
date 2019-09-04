@@ -15,7 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home/add', function () {
+    return view('addRoom');
+});
 Auth::routes();
+
+Route::resource('Room','RoomController');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
