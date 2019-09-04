@@ -14,7 +14,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        //
+        return view('roomList')->with('rooms',Room::all());
     }
 
     /**
@@ -24,7 +24,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        return view('createRoom');
+        return view('addRoom');
     }
 
     /**
@@ -62,7 +62,8 @@ class RoomController extends Controller
      */
     public function edit($id)
     {
-        return view('editRoom',compact('room'));
+        $room = Room::find($id);
+        return view('editRoom')->with('rooms',$room);
     }
 
     /**
@@ -74,14 +75,12 @@ class RoomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'room' => 'required',
-        ]);
-  
-        Product::create($request->all());
-   
+        $update = Room::find($id);
+        $update->room = $request->roomName;
+        $update->save();
+
         return redirect()->route('home')
-                        ->with('success','Room created successfully.');
+                        ->with('success','Room updated successfully.');
     }
 
     /**
@@ -92,9 +91,9 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {
-        $product->delete();
-  
-        return redirect()->route('home')
-                        ->with('success','Room deleted successfully');
+        $room = Room::find($id);
+        $room->delete();
+
+        return redirect()->back();
     }
 }
