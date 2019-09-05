@@ -14,9 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/test', function () {
+    return view('test');
+});
 
 Auth::routes();
-
+Route::get('/test', 'ChartDataController@getAllX')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/upload','HomeController@data')->name('data');
+Route::get('/upload','HomeController@data')->name('data');
