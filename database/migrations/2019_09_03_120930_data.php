@@ -17,7 +17,7 @@ class Data extends Migration
             $table->increments('id');
             $table->float('temp');
             $table->float('humidity');
-            $table->INT('roomId');
+            $table->integer('roomId');
             $table->timestamps();
         });
     }

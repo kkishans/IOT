@@ -71,26 +71,8 @@
             </div>
         </nav>
 
-        <main class="container-fluid">
-            <div class="row">
-              <div class="col-lg-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
-
-                    <div class="panel-body">
-                        <a href="{{route('home')}}" class="btn btn-light">Home</a>
-                        <hr>
-                        <a href="{{route('Rooms')}}" class="btn btn-light">Room List</a>
-                        <hr>
-                        <a href="{{route('Room.create')}}" class="btn btn-light">Add Room</a>
-                    </div>
-                </div>
-            </div>
-            @yield('content')
-          </div>
-        </main>
-    </div>
-
+        @yield('content')
+        
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
