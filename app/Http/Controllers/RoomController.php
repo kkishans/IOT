@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
 use App\Room;
 
@@ -14,7 +17,9 @@ class RoomController extends Controller
      */
     public function index()
     {
-        return view('roomList')->with('rooms',Room::all());
+        $user =  Auth::user()->email;
+        $sql_str = DB::table('room')->where('email' , $user)->get();
+        return view('roomList')->with('rooms',$sql_str);
     }
 
     /**
@@ -37,6 +42,7 @@ class RoomController extends Controller
     {
        $store = new Room;
        $store->room = $request->room;
+       $store->email = Auth::user()->email;
        $store->save();
    
         return redirect()->route('home')
