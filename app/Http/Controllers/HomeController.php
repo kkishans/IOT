@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
@@ -24,12 +27,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $email =  Auth::user()->email;
+        $sql_str = DB::table('room')->where('email' , $email)->get();
+        return view('home')->with('rooms',$sql_str);
+       // return view('home');
     }
 
     public function data()
     {
        
-        
+
     }
 }

@@ -1,4 +1,4 @@
-( function ( $ ) {
+( function ( $ ,room) {
 	var	i,templength;
 	var charts = {
 		init: function () {
@@ -6,11 +6,23 @@
 			Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 			Chart.defaults.global.defaultFontColor = '#292b2c';
 
-			this.drawchart();
+			var urlPath =  'http://localhost:8000/chart';
+			var request = $.ajax( {
+				method: 'GET',
+				url: urlPath
+		} );
+
+			request.done( function ( response ) {
+				console.log( response );
+				response.rooms.forEach(room => {
+					charts.drawchart(room);
+				});
+				
+			});
 
 		},
-		drawchart: function () {
-			var urlPath =  'http://localhost:8000/test';
+		drawchart: function (room) {
+			var urlPath =  'http://localhost:8000/chart/'+room;
 			var request = $.ajax( {
 				method: 'GET',
 				url: urlPath
@@ -19,16 +31,16 @@
 			request.done( function ( response ) {
 				console.log( response );
 				i = response.temp.length;
-				charts.createCompletedJobsChart( response );
+				charts.createCompletedJobsChart( response,room);
 			});
 		},
 
 		/**
 		 * Created the Completed Jobs Chart
 		 */
-		createCompletedJobsChart: function ( response ) {
+		createCompletedJobsChart: function ( response,room ) {
 
-			var ctx = document.getElementById("mychart");
+			var ctx = document.getElementById("chart-"+room);
 			var myLineChart = new Chart(ctx, {
 				type: 'line',
 				data: {
@@ -101,26 +113,30 @@
 function test (){
 		$.ajax({
 			type: 'GET',
-			url: 'http://localhost:8000/test',
+			url: 'http://localhost:8000/chart/',
 			data: {},
 			dataType: 'json',
 			success: function(data) 
 			{ 
-				if(i < data.temp.length){
-					// var index = data.temp.length-1;
-					// charts.data.labels.push(data.time[index-1]);
-					// charts.data.datasets[0].data.push(data.temp[index-1]);
-					// charts.data.datasets[1].data.push(data.humidity[index-1]);
-					// charts.update();
-					charts.drawchart();
-				}
-			 },
-			error: function() { alert('something bad happened'); }
-			});
+				data.rooms.forEach(room => {
+					var urlPath =  'http://localhost:8000/chart/'+room;
+					var request = $.ajax( {
+					method: 'GET',
+					rl: urlPath  } );
 
-		
+			request.done( function ( response ) {
+				
+				if(i < response.temp.length){
+					charts.drawchart(room);
+				}
+			});
+				});
+
+				
+			 },
+			error: function() { alert('Problem to fetch data by weak Connection'); }
+			});
 	};
-	setInterval(test, 2000);
-	//setInterval(chart.createCompletedJobsChart, 5000);
+	//setInterval(test, 3000);
 } )( jQuery );
 

@@ -19,9 +19,9 @@ Route::get('/', function () {
 
 
 Auth::routes();
-Route::get('/test', 'ChartDataController@getAllY')->name('test');
+Route::get('/chart', 'ChartDataController@getRooms')->name('rooms');
 
-
+Route::get('/chart/{room}', 'ChartDataController@getRoom')->name('room');
 
 Route::group(['middleware'=>'auth'],function ()
 {
@@ -57,6 +57,6 @@ Route::group(['middleware'=>'auth'],function ()
       ]);
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index','RoomController@index')->name('home');
 
 Route::get('/upload','HomeController@data')->name('data');

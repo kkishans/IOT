@@ -86,7 +86,10 @@
                     </div>
                 </div>
             </div>
-            @yield('content')
+            <div class="col-lg-9">
+                @yield('content')
+            </div>
+            
           </div>
         </main>
     </div>
