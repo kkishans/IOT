@@ -60,3 +60,4 @@ Route::group(['middleware'=>'auth'],function ()
 Route::get('/home', 'HomeController@index','RoomController@index')->name('home');
 
 Route::get('/upload','HomeController@data')->name('data');
+//All thing working prefactly ..
